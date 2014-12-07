@@ -55,7 +55,7 @@ mod termbox {
         pub fn tb_set_cursor(cx: c_int, cy: c_int);
         pub fn tb_change_cell(x: c_uint, y: c_uint, ch: u32, fg: u16, bg: u16);
 
-        //pub fn tb_select_input_mode(mode: c_int) -> c_int;
+        pub fn tb_select_output_mode(mode: c_int) -> c_int;
         //pub fn tb_set_clear_attributes(fg: u16, bg: u16);
 
         pub fn tb_peek_event(ev: *const ::RawEvent, timeout: c_uint) -> c_int;
@@ -107,6 +107,12 @@ pub fn convert_style(sty: Style) -> u16 {
 pub fn init() -> int {
     unsafe {
         termbox::tb_init() as int
+    }
+}
+
+pub fn mode_256() -> int {
+    unsafe {
+        termbox::tb_select_output_mode(2i32) as int
     }
 }
 
